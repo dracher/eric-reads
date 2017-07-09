@@ -29,7 +29,7 @@ class Search extends React.Component {
         });
       }
     } else {
-      showingBooks = books;
+      showingBooks = [];
     }
     showingBooks.sort(sortBy('title'));
 
