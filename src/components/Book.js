@@ -1,21 +1,21 @@
-import React from "react";
+import React from 'react';
 
 class Book extends React.Component {
   state = {
     currentShelf: this.props.shelf
-  }
+  };
 
   componentWillReceiveProps(nextProps) {
     // console.log(nextProps)
-    this.setState({currentShelf: nextProps.shelf})
+    this.setState({ currentShelf: nextProps.shelf });
   }
 
-  handleSelect = (e) => {
-    let destShelf = e.target.value
+  handleSelect = e => {
+    let destShelf = e.target.value;
     if (this.currentShelf !== destShelf) {
-      this.props.onMoveBook(this.props.bid, destShelf)
+      this.props.onMoveBook(this.props.bid, destShelf);
     }
-  }
+  };
 
   render() {
     return (
@@ -26,13 +26,15 @@ class Book extends React.Component {
             style={{
               width: 128,
               height: 193,
-              backgroundImage:
-                `url("${this.props.thumbnail}")`,
-              backgroundRepeat: "no-repeat round"
+              backgroundImage: `url("${this.props.thumbnail}")`,
+              backgroundRepeat: 'no-repeat round'
             }}
           />
           <div className="book-shelf-changer">
-            <select value={this.state.currentShelf} onChange={this.handleSelect}>
+            <select
+              value={this.state.currentShelf}
+              onChange={this.handleSelect}
+            >
               <option value="none" disabled>
                 Move to...
               </option>
@@ -42,12 +44,22 @@ class Book extends React.Component {
             </select>
           </div>
         </div>
-        <div className="book-title">{this.state.currentShelf}</div>
-        <div className="book-title">{this.props.title}</div>
-        <div className="book-authors">{this.props.authors}</div>
+        <div className="book-title">
+          {this.state.currentShelf}
+        </div>
+        <div className="book-title">
+          {this.props.title}
+        </div>
+        {this.props.authors.map(author => {
+          return (
+            <div className="book-authors" key={author}>
+              {author}
+            </div>
+          );
+        })}
       </div>
     );
   }
 }
 
-export default Book
+export default Book;
