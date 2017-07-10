@@ -43,7 +43,8 @@ class Book extends React.Component {
               <option value="none" disabled>
                 -------
               </option>
-              <option value="none">Remove</option>
+              {this.props.currentLoc === '/' &&
+                <option value="none">Remove</option>}
             </select>
           </div>
         </div>

@@ -11,8 +11,7 @@ class BooksApp extends React.Component {
       <div className="app">
         <div className="list-books">
           <div className="list-books-title">
-            <h1>MyReads</h1>
-            <Link to="/search">search</Link>
+            <h1>Eric's Read</h1>
           </div>
           <div className="list-books-content">
             <div>
@@ -29,6 +28,9 @@ class BooksApp extends React.Component {
               })}
             </div>
           </div>
+        </div>
+        <div className="open-search">
+          <Link to="/search">search</Link>
         </div>
       </div>
     );
