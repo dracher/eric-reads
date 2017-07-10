@@ -1,10 +1,13 @@
-html, body, .root {
+html,
+body,
+.root {
   height: 100%;
 }
 body {
   line-height: 1.5;
 }
-body, .app {
+body,
+.app {
   background: white;
 }
 
@@ -37,6 +40,7 @@ body, .app {
 }
 
 .bookshelf-title {
+  text-align: center;
   border-bottom: 1px solid #dedede;
 }
 .bookshelf-books {
@@ -58,7 +62,7 @@ body, .app {
   background-repeat: no-repeat;
   background-position: center;
   background-size: 28px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   font-size: 0;
 }
 
@@ -71,7 +75,7 @@ body, .app {
   left: 0;
   z-index: 5;
   display: flex;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 0 6px rgba(0,0,0,0.23);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 0 6px rgba(0, 0, 0, 0.23);
 }
 .search-books-input-wrapper {
   flex: 1;
@@ -133,6 +137,15 @@ body, .app {
   color: #999;
 }
 
+.book-current-shelf {
+  font-size: 1em;
+  margin-top: 10px;
+  font-weight: bolder;
+  background-color: lightblue;
+  color: white;
+  text-align: center;
+}
+
 .book-top {
   position: relative;
   height: 200px;
@@ -152,7 +165,7 @@ body, .app {
   background-repeat: no-repeat;
   background-position: center;
   background-size: 20px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 .book-shelf-changer select {
   width: 100%;
@@ -164,7 +177,7 @@ body, .app {
 /* book cover */
 
 .book-cover {
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   background: #eee;
 }
 .book-cover-title {

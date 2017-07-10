@@ -1,9 +1,9 @@
-import React from "react";
-import { Route, Link } from "react-router-dom";
-import * as BooksAPI from "./BooksAPI";
-import "./App.css";
-import BookShelf from "./components/BookShelf";
-import Search from "./components/Search";
+import React from 'react';
+import { Route, Link } from 'react-router-dom';
+import * as BooksAPI from './BooksAPI';
+import './App.css';
+import BookShelf from './components/BookShelf';
+import Search from './components/Search';
 
 class BooksApp extends React.Component {
   render() {
@@ -23,6 +23,7 @@ class BooksApp extends React.Component {
                     books={this.props.books}
                     shelf={shelf}
                     onMoveBook={this.props.onMoveBook}
+                    currentLoc={this.props.currentLoc}
                   />
                 );
               })}
@@ -37,7 +38,7 @@ class BooksApp extends React.Component {
 class App extends React.Component {
   state = {
     books: [],
-    categories: ["currentlyReading", "wantToRead", "read"]
+    categories: ['currentlyReading', 'wantToRead', 'read']
   };
 
   componentDidMount() {
@@ -63,19 +64,27 @@ class App extends React.Component {
         <Route
           exact
           path="/"
-          render={() =>
-            <BooksApp
-              books={this.state.books}
-              categories={this.state.categories}
-              onMoveBook={this.moveBook}
-            />}
+          render={props => {
+            return (
+              <BooksApp
+                books={this.state.books}
+                categories={this.state.categories}
+                onMoveBook={this.moveBook}
+                currentLoc={props.location.pathname}
+              />
+            );
+          }}
         />
 
         <Route
           exact
           path="/search"
-          render={() =>
-            <Search books={this.state.books} onMoveBook={this.moveBook} />}
+          render={props =>
+            <Search
+              books={this.state.books}
+              onMoveBook={this.moveBook}
+              currentLoc={props.location.pathname}
+            />}
         />
       </div>
     );

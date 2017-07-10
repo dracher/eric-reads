@@ -1,5 +1,5 @@
-import React from "react";
-import Book from "./Book";
+import React from 'react';
+import Book from './Book';
 
 class BookShelf extends React.Component {
   state = {
@@ -31,6 +31,7 @@ class BookShelf extends React.Component {
                       thumbnail={book.imageLinks.thumbnail}
                       shelf={book.shelf}
                       onMoveBook={this.props.onMoveBook}
+                      currentLoc={this.props.currentLoc}
                     />
                   </li>
                 );
