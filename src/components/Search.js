@@ -1,12 +1,12 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Book from './Book';
-import escapeRegExp from 'escape-string-regexp';
-import sortBy from 'sort-by';
+import React from "react";
+import { Link } from "react-router-dom";
+import Book from "./Book";
+import escapeRegExp from "escape-string-regexp";
+import sortBy from "sort-by";
 
 class Search extends React.Component {
   state = {
-    query: ''
+    query: ""
   };
 
   updateQuery = query => {
@@ -19,7 +19,7 @@ class Search extends React.Component {
 
     let showingBooks;
     if (query) {
-      const match = new RegExp(escapeRegExp(query), 'i');
+      const match = new RegExp(escapeRegExp(query), "i");
       showingBooks = books.filter(book => match.test(book.title));
       if (showingBooks.length === 0) {
         showingBooks = books.filter(book => {
@@ -31,7 +31,7 @@ class Search extends React.Component {
     } else {
       showingBooks = [];
     }
-    showingBooks.sort(sortBy('title'));
+    showingBooks.sort(sortBy("title"));
 
     return (
       <div className="search-books">

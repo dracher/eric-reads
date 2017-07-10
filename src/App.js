@@ -1,9 +1,9 @@
-import React from 'react';
-import { Route, Link } from 'react-router-dom';
-import * as BooksAPI from './BooksAPI';
-import './App.css';
-import BookShelf from './components/BookShelf';
-import Search from './components/Search';
+import React from "react";
+import { Route, Link } from "react-router-dom";
+import * as BooksAPI from "./BooksAPI";
+import "./App.css";
+import BookShelf from "./components/BookShelf";
+import Search from "./components/Search";
 
 class BooksApp extends React.Component {
   render() {
@@ -37,7 +37,7 @@ class BooksApp extends React.Component {
 class App extends React.Component {
   state = {
     books: [],
-    categories: ['currentlyReading', 'wantToRead', 'read']
+    categories: ["currentlyReading", "wantToRead", "read"]
   };
 
   componentDidMount() {

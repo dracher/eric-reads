@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 class Book extends React.Component {
   state = {
@@ -27,7 +27,7 @@ class Book extends React.Component {
               width: 128,
               height: 193,
               backgroundImage: `url("${this.props.thumbnail}")`,
-              backgroundRepeat: 'no-repeat round'
+              backgroundRepeat: "no-repeat round"
             }}
           />
           <div className="book-shelf-changer">
