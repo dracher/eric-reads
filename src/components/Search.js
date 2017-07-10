@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Book from './Book';
 import * as BooksAPI from '../BooksAPI';
+import _ from 'underscore';
 // import escapeRegExp from 'escape-string-regexp';
 // import sortBy from 'sort-by';
 
@@ -20,9 +21,9 @@ class Search extends React.Component {
       }
     });
   };
-
+  ff = _.debounce(() => console.log(this.state.query), 1000);
   updateQuery = query => {
-    this.setState({ query: query.trim() });
+    this.setState({ query: query }, this.ff);
   };
 
   handleKeyPress = e => {
@@ -48,7 +49,6 @@ class Search extends React.Component {
               placeholder="Search by title or author + '↵'"
               value={query}
               onChange={event => this.updateQuery(event.target.value)}
-              onKeyPress={this.handleKeyPress}
             />
           </div>
         </div>
@@ -75,6 +75,7 @@ class Search extends React.Component {
               : <div>
                   <br />
                   <h1>No books found</h1>
+                  {this.state.query}
                 </div>}
           </ol>
         </div>

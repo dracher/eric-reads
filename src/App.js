@@ -39,8 +39,7 @@ class BooksApp extends React.Component {
 
 class App extends React.Component {
   state = {
-    books: [],
-    categories: ['currentlyReading', 'wantToRead', 'read']
+    books: []
   };
 
   componentDidMount() {
@@ -79,6 +78,7 @@ class App extends React.Component {
   };
 
   render() {
+    const categories = ['currentlyReading', 'wantToRead', 'read'];
     return (
       <div>
         <Route
@@ -88,7 +88,7 @@ class App extends React.Component {
             return (
               <BooksApp
                 books={this.state.books}
-                categories={this.state.categories}
+                categories={categories}
                 onMoveBook={this.moveBook}
                 currentLoc={props.location.pathname}
               />
