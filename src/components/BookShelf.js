@@ -32,6 +32,7 @@ class BookShelf extends React.Component {
                       shelf={book.shelf}
                       onMoveBook={this.props.onMoveBook}
                       currentLoc={this.props.currentLoc}
+                      rawBook={book}
                     />
                   </li>
                 );

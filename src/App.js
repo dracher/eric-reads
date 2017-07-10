@@ -47,15 +47,33 @@ class App extends React.Component {
     });
   }
 
-  moveBook = (id, shelf) => {
-    let newBooks = this.state.books.map(book => {
-      if (book.id === id) {
-        BooksAPI.update(book, shelf);
-        book.shelf = shelf;
+  checkBookExists = rawBook => {
+    for (let book of this.state.books) {
+      if (book.id === rawBook.id) {
+        return true;
       }
-      return book;
-    });
-    this.setState({ books: newBooks });
+    }
+    return false;
+  };
+
+  moveBook = (id, shelf, rawBook) => {
+    let exists = this.checkBookExists(rawBook);
+    if (exists) {
+      let newBooks = this.state.books.map(book => {
+        if (book.id === id) {
+          BooksAPI.update(book, shelf);
+          book.shelf = shelf;
+        }
+        return book;
+      });
+      this.setState({ books: newBooks });
+    } else {
+      rawBook.shelf = shelf;
+      this.setState(prevState => ({
+        books: prevState.books.concat([rawBook])
+      }));
+      BooksAPI.update(rawBook, shelf);
+    }
   };
 
   render() {

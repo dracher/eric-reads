@@ -12,9 +12,8 @@ class Book extends React.Component {
 
   handleSelect = e => {
     let destShelf = e.target.value;
-    if (this.currentShelf !== destShelf) {
-      this.props.onMoveBook(this.props.bid, destShelf);
-    }
+    console.log(destShelf);
+    this.props.onMoveBook(this.props.bid, destShelf, this.props.rawBook);
   };
 
   render() {
@@ -41,23 +40,28 @@ class Book extends React.Component {
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
               <option value="read">Read</option>
+              <option value="none" disabled>
+                -------
+              </option>
+              <option value="none">Remove</option>
             </select>
           </div>
         </div>
-        {this.props.currentLoc === '/search' &&
+        {/*{this.props.currentLoc === "/search" &&
           <div className="book-current-shelf">
             {this.state.currentShelf}
-          </div>}
+          </div>}*/}
         <div className="book-title">
           {this.props.title}
         </div>
-        {this.props.authors.map(author => {
-          return (
-            <div className="book-authors" key={author}>
-              {author}
-            </div>
-          );
-        })}
+        {!Object.is(this.props.authors, undefined) &&
+          this.props.authors.map(author => {
+            return (
+              <div className="book-authors" key={author}>
+                {author}
+              </div>
+            );
+          })}
       </div>
     );
   }
