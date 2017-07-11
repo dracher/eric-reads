@@ -71,11 +71,12 @@ class App extends React.Component {
         }
       }
     } else {
-      rawBook.shelf = shelf;
-      this.setState(prevState => ({
-        books: prevState.books.concat([rawBook])
-      }));
-      BooksAPI.update(rawBook, shelf);
+      BooksAPI.update(rawBook, shelf).then(() => {
+        rawBook.shelf = shelf;
+        this.setState(prevState => ({
+          books: prevState.books.concat([rawBook])
+        }));
+      });
     }
   };
 
