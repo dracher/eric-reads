@@ -61,14 +61,15 @@ class App extends React.Component {
   moveBook = (id, shelf, rawBook) => {
     let exists = this.checkBookExists(rawBook);
     if (exists) {
-      let newBooks = this.state.books.map(book => {
-        if (book.id === id) {
-          BooksAPI.update(book, shelf);
-          book.shelf = shelf;
+      let newBooks = this.state.books;
+      for (const index of newBooks.keys()) {
+        if (newBooks[index].id === id) {
+          BooksAPI.update(newBooks[index], shelf).then(() => {
+            newBooks[index].shelf = shelf;
+            this.setState({ books: newBooks });
+          });
         }
-        return book;
-      });
-      this.setState({ books: newBooks });
+      }
     } else {
       rawBook.shelf = shelf;
       this.setState(prevState => ({
