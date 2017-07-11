@@ -1,8 +1,13 @@
 import React from 'react';
 
 class Book extends React.Component {
+  state = {
+    spinner: false // move book wait spinner
+  };
+
   handleSelect = e => {
     let destShelf = e.target.value;
+    this.props.currentLoc === '/' && this.setState({ spinner: true });
     this.props.onMoveBook(this.props.rawBook.id, destShelf, this.props.rawBook);
   };
 
@@ -24,24 +29,27 @@ class Book extends React.Component {
               backgroundRepeat: 'no-repeat round'
             }}
           />
-          <div className="book-shelf-changer">
-            <select
-              value={!currentShelf ? 'none' : currentShelf}
-              onChange={this.handleSelect}
-            >
-              <option value="none" disabled>
-                Move to...
-              </option>
-              <option value="currentlyReading">Currently Reading</option>
-              <option value="wantToRead">Want to Read</option>
-              <option value="read">Read</option>
-              <option value="none" disabled>
-                -------
-              </option>
-              {this.props.currentLoc === '/' &&
-                <option value="none">Remove</option>}
-            </select>
-          </div>
+
+          {!this.state.spinner
+            ? <div className="book-shelf-changer">
+                <select
+                  value={!currentShelf ? 'none' : currentShelf}
+                  onChange={this.handleSelect}
+                >
+                  <option value="none" disabled>
+                    Move to...
+                  </option>
+                  <option value="currentlyReading">Currently Reading</option>
+                  <option value="wantToRead">Want to Read</option>
+                  <option value="read">Read</option>
+                  <option value="none" disabled>
+                    -------
+                  </option>
+                  {this.props.currentLoc === '/' &&
+                    <option value="none">Remove</option>}
+                </select>
+              </div>
+            : <div className="book-shelf-spinner" />}
         </div>
         {this.props.currentLoc === '/search' &&
           <div className="book-current-shelf">
