@@ -1,22 +1,15 @@
 import React from 'react';
 
 class Book extends React.Component {
-  state = {
-    currentShelf: this.props.shelf
-  };
-
-  componentWillReceiveProps(nextProps) {
-    // console.log(nextProps)
-    this.setState({ currentShelf: nextProps.shelf });
-  }
-
   handleSelect = e => {
     let destShelf = e.target.value;
-    console.log(destShelf);
-    this.props.onMoveBook(this.props.bid, destShelf, this.props.rawBook);
+    this.props.onMoveBook(this.props.rawBook.id, destShelf, this.props.rawBook);
   };
 
   render() {
+    const currentShelf = this.props.checkBookExists(this.props.rawBook);
+    const rawBook = this.props.rawBook;
+
     return (
       <div className="book">
         <div className="book-top">
@@ -25,13 +18,15 @@ class Book extends React.Component {
             style={{
               width: 128,
               height: 193,
-              backgroundImage: `url("${this.props.thumbnail}")`,
+              backgroundImage: `url("${Object.is(rawBook.imageLinks, undefined)
+                ? ''
+                : rawBook.imageLinks.thumbnail}")`,
               backgroundRepeat: 'no-repeat round'
             }}
           />
           <div className="book-shelf-changer">
             <select
-              value={this.state.currentShelf}
+              value={!currentShelf ? 'none' : currentShelf}
               onChange={this.handleSelect}
             >
               <option value="none" disabled>
@@ -48,15 +43,15 @@ class Book extends React.Component {
             </select>
           </div>
         </div>
-        {/*{this.props.currentLoc === "/search" &&
+        {this.props.currentLoc === '/search' &&
           <div className="book-current-shelf">
-            {this.state.currentShelf}
-          </div>}*/}
+            {currentShelf}
+          </div>}
         <div className="book-title">
-          {this.props.title}
+          {rawBook.title}
         </div>
-        {!Object.is(this.props.authors, undefined) &&
-          this.props.authors.map(author => {
+        {!Object.is(rawBook.authors, undefined) &&
+          rawBook.authors.map(author => {
             return (
               <div className="book-authors" key={author}>
                 {author}

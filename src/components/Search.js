@@ -2,9 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Book from './Book';
 import * as BooksAPI from '../BooksAPI';
-import _ from 'underscore';
-// import escapeRegExp from 'escape-string-regexp';
-// import sortBy from 'sort-by';
+import _ from 'lodash';
 
 class Search extends React.Component {
   state = {
@@ -12,25 +10,18 @@ class Search extends React.Component {
     queriedBooks: []
   };
 
-  goSearch = (query, maxResults) => {
-    BooksAPI.search(query, maxResults).then(books => {
+  debounceSearch = _.debounce(() => {
+    BooksAPI.search(this.state.query, 50).then(books => {
       if (Array.isArray(books)) {
         this.setState({ queriedBooks: books });
       } else {
         this.setState({ queriedBooks: [] });
       }
     });
-  };
-  ff = _.debounce(() => console.log(this.state.query), 1000);
-  updateQuery = query => {
-    this.setState({ query: query }, this.ff);
-  };
+  }, 100);
 
-  handleKeyPress = e => {
-    if (e.key === 'Enter' && this.state.query.length !== 0) {
-      this.goSearch(this.state.query, 50);
-      this.setState({ query: '' });
-    }
+  updateQuery = query => {
+    this.setState({ query: query }, this.debounceSearch);
   };
 
   render() {
@@ -46,7 +37,7 @@ class Search extends React.Component {
           <div className="search-books-input-wrapper">
             <input
               type="text"
-              placeholder="Search by title or author + '↵'"
+              placeholder="Search by title or author"
               value={query}
               onChange={event => this.updateQuery(event.target.value)}
             />
@@ -60,22 +51,20 @@ class Search extends React.Component {
                   return (
                     <li key={book.id}>
                       <Book
-                        bid={book.id}
-                        title={book.title}
-                        authors={book.authors}
-                        thumbnail={book.imageLinks.thumbnail}
-                        shelf={'none'}
                         onMoveBook={onMoveBook}
                         currentLoc={this.props.currentLoc}
                         rawBook={book}
+                        checkBookExists={this.props.checkBookExists}
                       />
                     </li>
                   );
                 })
               : <div>
                   <br />
-                  <h1>No books found</h1>
-                  {this.state.query}
+                  <h1>
+                    {this.state.queriedBooks.length} books found
+                    {this.state.query}
+                  </h1>
                 </div>}
           </ol>
         </div>

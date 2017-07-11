@@ -23,6 +23,7 @@ class BooksApp extends React.Component {
                     shelf={shelf}
                     onMoveBook={this.props.onMoveBook}
                     currentLoc={this.props.currentLoc}
+                    checkBookExists={this.props.checkBookExists}
                   />
                 );
               })}
@@ -51,7 +52,7 @@ class App extends React.Component {
   checkBookExists = rawBook => {
     for (let book of this.state.books) {
       if (book.id === rawBook.id) {
-        return true;
+        return book.shelf;
       }
     }
     return false;
@@ -91,6 +92,7 @@ class App extends React.Component {
                 categories={categories}
                 onMoveBook={this.moveBook}
                 currentLoc={props.location.pathname}
+                checkBookExists={this.checkBookExists}
               />
             );
           }}
@@ -104,6 +106,7 @@ class App extends React.Component {
               books={this.state.books}
               onMoveBook={this.moveBook}
               currentLoc={props.location.pathname}
+              checkBookExists={this.checkBookExists}
             />}
         />
       </div>
